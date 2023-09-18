@@ -1,14 +1,28 @@
+import { useState } from "react";
 import useKiosco from "../hooks/useKiosco";
 import Categoria from "./Categoria";
 // movemos las categorias hacia el provider (KioscoProvider)
 // import { categorias } from "../data/categorias";
 import { useAuth } from "../hooks/useAuth";
+import Loader from "./Loader";
 
 export default function Sidebar() {
 
     /** lo que está dentro de las llaves es lo que tenemos en el value de KioscoProvider */
     const { categorias } = useKiosco();
     const { logout, user } = useAuth({middleware: 'auth'})
+    const [cancelarOrden, setCancelarOrden] = useState(false);
+
+    const handleCancelarOrden = async () => {
+        setCancelarOrden(true);
+        try {
+            await logout(); // Supongamos que logout es una función asincrónica
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setCancelarOrden(false);
+        }
+    }
 
 	return (
         <aside className="md:w-72">
@@ -46,10 +60,17 @@ export default function Sidebar() {
             <div className="my-3 px-5">
                 <button
                     type="button"
-                    className="text-center bg-red-500 w-full p-2.5 font-bold text-white truncate rounded-md hover:bg-red-600"
-                    onClick={logout}
+                    className={`text-center bg-red-500 w-full p-2.5 font-bold text-white truncate rounded-md hover:bg-red-600 ${cancelarOrden ? 'opacity-50 cursor-no-drop' : ''}`}
+                    onClick={handleCancelarOrden}
+                    disabled={cancelarOrden}
                 >
-                    Cancelar Orden
+                    {cancelarOrden ? (
+							<div className="flex items-center justify-center">
+								<Loader /> Saliendo ...
+							</div>
+						) : (
+							'Cancelar Orden'
+						)}
                 </button>
             </div>
         </aside>

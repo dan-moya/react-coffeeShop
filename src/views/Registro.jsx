@@ -2,6 +2,7 @@ import { createRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Alerta from "../components/Alerta";
 import { useAuth } from "../hooks/useAuth";
+import Loader from "../components/Loader";
 
 export default function Registro() {
 
@@ -12,11 +13,13 @@ export default function Registro() {
     const passwordConfirmationRef = createRef();
 
     const [errores, setErrores] = useState([]);
+    const [loading, setLoading] = useState(false);
     const {registro} = useAuth({middleware: 'guest', url: '/'})
 
     // esto sería con un action="" del form, pero lo estamos haciendo con react
     const handleSubmit = async e => {
         e.preventDefault();
+		setLoading(true);
 
         // y estos datos son los que vamos a enviar a Laravel, por lo que tiene que ser igual a lo que tenemos en el Request
         const datos = {
@@ -26,18 +29,28 @@ export default function Registro() {
             password_confirmation: passwordConfirmationRef.current.value
         }
 
-        registro(datos, setErrores)
+        // Muestra el spinner hasta que devuelva error o éxito
+		try {
+            await registro(datos, setErrores)
+		} catch (error) {
+			console.error(error);
+		}finally {
+			setLoading(false);
+		}
     }
 
 	return (
 		<>
-			<h1 className="text-4xl font-black">Crea tu cuenta</h1>
-			<p>Crea tu cuenta llenando el formulario</p>
+            <div className="text-center">
+                <h1 className="text-4xl font-black">Crea tu cuenta</h1>
+                <p>Crea tu cuenta llenando el formulario</p>
+            </div>
 
-            <div className="bg-white shadow-md rounded-md mt-10 px-5 py-10">
+            <div className="bg-white shadow-md rounded-md mt-10 p-5">
                 <form
                     onSubmit={handleSubmit}
                     noValidate
+                    autoComplete="on"
                 >
                     {/** el {error} dentro de Alerta, es el children que está en el archivo Alerta.jsx */}
                     {errores ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>) : null}
@@ -90,17 +103,26 @@ export default function Registro() {
                         />
                     </div>
 
-                    <input
-                        type="submit"
-                        value="Crear Cuenta"
-                        className="bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold cursor-pointer rounded-md"
-                    />
+                    <button
+						type="submit"
+						disabled={loading}
+						className={`bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold cursor-pointer rounded-md ${loading ? 'opacity-50 cursor-wait' : ''}`}
+					>
+						{loading ? (
+							<div className="flex items-center justify-center">
+								<Loader /> Creando Cuenta ...
+							</div>
+						) : (
+							'Crear Cuenta'
+						)}
+					</button>
                 </form>
             </div>
 
             <nav className="mt-5">
                 <Link to="/auth/login">
-                    Ya tienes una cuenta? Inicia Sesión
+                    Ya tienes una cuenta?
+                    <span className="text-indigo-500 font-semibold underline px-1">Inicia Sesión</span>
                 </Link>
             </nav>
 		</>

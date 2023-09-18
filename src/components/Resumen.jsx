@@ -2,17 +2,26 @@ import { formatearDinero } from "../helpers";
 import useKiosco from "../hooks/useKiosco";
 import { useAuth } from "../hooks/useAuth";
 import ResumenProducto from "./ResumenProducto";
+import { useState } from "react";
+import Loader from "./Loader";
 
 export default function Resumen() {
 
     const { pedido, total, handleSubmitNuevaOrden } = useKiosco();
     const {logout} = useAuth({})
+    const [confirmado, setConfirmado] = useState(false)
 
     const comprobarPedido = () => pedido.length === 0;  // comprueba si el pedido está vacío o no (vacío = true), es decir, que si retorna true lo deshabilita
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-
-        handleSubmitNuevaOrden(logout);
+        setConfirmado(true); // Establece confirmado a true para activar la redirección
+        try {
+            await handleSubmitNuevaOrden(logout);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setConfirmado(false);
+        }
     }
 
 	return (
@@ -53,14 +62,21 @@ export default function Resumen() {
                     onSubmit={handleSubmit}
                 >
                     <div className="mt-5">
-                        <input
+                        <button
                             type="submit"
-                            className={`${comprobarPedido() ?
-                                'bg-indigo-200 cursor-not-allowed' : 'bg-slate-700 hover:bg-slate-800' }
+                            className={`${comprobarPedido() || confirmado ?
+                                'bg-indigo-300 cursor-no-drop' : 'bg-slate-700 hover:bg-slate-800' }
                                 px-5 py-2 rounded uppercase font-bold text-white text-center w-full cursor-pointer tracking-wide`}
-                            value="Confirmar Pedido"
-                            disabled={comprobarPedido()}
-                        />
+                            disabled={comprobarPedido() || confirmado}
+                        >
+                            {confirmado ? (
+							<div className="flex items-center justify-center">
+								<Loader /> <span className="capitalize">Procesando Pedido...</span>
+							</div>
+						) : (
+							'Confirmar Pedido'
+						)}
+                        </button>
                     </div>
                 </form>
             </div>

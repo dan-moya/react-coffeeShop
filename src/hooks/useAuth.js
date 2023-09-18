@@ -94,5 +94,4 @@ export const useAuth = ({middleware, url}) => {
         user,
         error
     }
-
 }
