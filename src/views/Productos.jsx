@@ -23,7 +23,7 @@ export default function Productos() {
 			<h1 className="text-4xl font-black">Productos</h1>
 			<p className="text-2xl my-10">Maneja la disponibilidad desde aquí.</p>
 
-			<div className='grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4'>
+			<div className='grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
                 {data.data.map(producto => (
                     <Producto
                         key={producto.imagen}

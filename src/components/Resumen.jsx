@@ -42,7 +42,7 @@ export default function Resumen() {
                 </div>
             </div>
 
-            <div className="bottom-0 sticky bg-white p-5">
+            <div className="bottom-0 sticky bg-zinc-100 p-5">
                 <p className="text-xl">
                     Total: {''}
                     {formatearDinero(total)}
