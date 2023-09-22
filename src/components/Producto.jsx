@@ -15,18 +15,19 @@ export default function Producto({ producto, botonAgregar = false, botonDisponib
 			<img
                 src={`/img/${imagen}.jpg`}
                 alt={`imagen ${nombre}`}
-                className="w-full object-cover object-center"
+                className="w-full rounded-sm object-cover object-center"
             />
 
-            <div className="p-5">
-                <h3 className="text-xl font-semibold">{nombre}</h3>
-                <p className="mt-3 font-black text-2xl text-amber-500">
+            <div className="p-2 sm:p-5">
+                <h3 className="text-sm sm:text-lg md:text-xl font-semibold">{nombre}</h3>
+                <p className="mt-1.5 font-black text-lg sm:mt-2 sm:text-xl text-amber-500">
                     { formatearDinero(precio) }
                 </p>
+
                 {botonAgregar && (
                     <button
                         type="button"
-                        className="bg-amber-600 hover:bg-amber-700 text-white w-full mt-5 p-2.5 uppercase font-bold rounded-md tracking-wide"
+                        className="bg-amber-600 hover:bg-amber-700 text-white w-full mt-3 sm:mt-3.5 md:mt-5 p-2 sm:p-2.5 uppercase font-bold rounded-md tracking-wide text-sm sm:text-sm 2xl:text-xl"
                         onClick={() => {
                             handleClickModal();
                             handleSetProducto(producto);

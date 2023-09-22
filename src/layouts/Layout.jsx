@@ -40,7 +40,7 @@ export default function Layout() {
 
 	return (
 		<>
-			<div className='md:flex'>
+			<div className='md:flex md:flex-col xl:flex-row'>
 				<Sidebar />
 
 				<main className='flex-1 h-screen overflow-y-scroll bg-gray-100 p-3 sm:p-1.5'>

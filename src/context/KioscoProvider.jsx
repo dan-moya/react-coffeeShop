@@ -142,7 +142,7 @@ const KioscoProvider = ({children}) => {
             setTimeout(() => {
                 localStorage.removeItem('AUTH_TOKEN');
                 logout()
-            }, 4500);
+            }, 2500);
 
         } catch (error) {
             console.log(error)

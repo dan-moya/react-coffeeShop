@@ -14,13 +14,19 @@ export default function Categoria({ categoria }) {
 
 	return (
 		<div
-            className={`${categoriaActual.id === id ? "bg-amber-400" : "bg-white"} flex items-center gap-4 border w-full p-3 hover:bg-amber-400 cursor-pointer`}
+            className={
+                `${categoriaActual.id === id ? "bg-amber-400" : "bg-white"}
+                flex items-center gap-2.5 border w-full p-3 hover:bg-amber-400 cursor-pointer rounded-md shadow-md
+                sm:gap-4
+                lg:shadow-none
+                xl:rounded-none xl:border-t-0 xl:border-x-0
+                2xl:py-6`}
             onClick={() => handleClickCategoria(id)}
         >
 			<img
                 src={`/img/icono_${icono}.svg`}
                 alt="Imagen icono"
-                className="w-12"
+                className="w-12 2xl:w-14"
             />
 
             {/** cuando demos click llamará a la función handleClickCategoria, lo cual irá al KioscoProvider y hará lo que esté en ese archivo (de esa función).
@@ -28,7 +34,7 @@ export default function Categoria({ categoria }) {
             */}
 			<button
                 type='button'
-                className="text-lg font-bold cursor-pointer truncate"
+                className="text-lg font-bold cursor-pointer truncate lg:text-xl lg:tracking-wider 2xl:text-2xl"
                 // onClick={() => handleClickCategoria(id)}
             >
                 {nombre}

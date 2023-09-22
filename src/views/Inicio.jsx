@@ -17,7 +17,7 @@ export default function Inicio() {
 		}
     }).then(data => data.data)
     const { data, error, isLoading } = useSWR('/api/productos', fetcher, {
-        refreshInterval: 1000 // esto es para que los cambios se actualicen en tiempo real (sin refrescar page) en 1s
+        refreshInterval: 100000000 // esto es para que los cambios se actualicen en tiempo real (sin refrescar page) en 1s (1000)
     })
 
     /* console.log(data)
@@ -31,10 +31,12 @@ export default function Inicio() {
 
 	return (
         <>
-            <h1 className='text-4xl font-extrabold mt-1'>{categoriaActual.nombre}</h1>
-            <p className='text-2xl my-4'>Elige y personaliza tu pedido a continuación.</p>
+            <div className='sm:mx-1 2xl:mt-4'>
+                <h1 className='text-3xl md:text-4xl font-extrabold mt-1 2xl:text-6xl'>{categoriaActual.nombre}</h1>
+                <p className='text-lg my-2.5 sm:text-xl sm:my-4 2xl:text-3xl'>Elige y personaliza tu pedido a continuación</p>
+            </div>
 
-            <div className='grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
+            <div className='grid gap-3 grid-cols-2 sm:grid-cols-3 sm:gap-2 md:grid-cols-3 min-[920px]:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4'>
                 {productos.map(producto => (
                     <Producto
                         key={producto.imagen}

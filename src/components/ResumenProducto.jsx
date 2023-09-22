@@ -7,19 +7,19 @@ export default function ResumenProducto({ producto }) {
 	const { id, imagen, nombre, precio, cantidad } = producto;
 
 	return (
-		<div className="shadow-lg space-y-1 p-4 bg-white rounded-sm">
+		<div className="shadow-lg space-y-1 p-4 bg-white rounded-md">
 			<div className="space-y-1.5">
 				<p className="flex items-center gap-2">
 					<img
 						src={`/img/${imagen}.jpg`}
 						alt={`imagen ${nombre}`}
-						className="w-8 rounded-md"
+						className="w-8 rounded-md 2xl:w-12"
 					/>
-					<span className="text-base font-bold">{nombre}</span>
+					<span className="text-base font-bold 2xl:text-lg">{nombre}</span>
 				</p>
-				<p className="text-base font-bold ">Cantidad: {cantidad}</p>
-				<p className="text-lg font-bold text-amber-500">Precio: {formatearDinero(precio)}</p>
-				<p className="text-lg text-gray-700">Subtotal: {formatearDinero(precio * cantidad)}</p>
+				<p className="text-base font-bold 2xl:text-lg">Cantidad: {cantidad}</p>
+				<p className="text-lg font-bold text-amber-500 2xl:text-xl">Precio: {formatearDinero(precio)}</p>
+				<p className="text-lg text-gray-700 2xl:text-xl">Subtotal: {formatearDinero(precio * cantidad)}</p>
 			</div>
 
 			<div className="flex justify-end gap-2 py-1">
@@ -30,7 +30,7 @@ export default function ResumenProducto({ producto }) {
 				>
 					<svg
                         xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5"
+                        className="h-5 w-5 2xl:h-6 2xl:w-6"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                     >
@@ -46,7 +46,7 @@ export default function ResumenProducto({ producto }) {
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						className="h-5 w-5"
+						className="h-5 w-5 2xl:h-6 2xl:w-6"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"

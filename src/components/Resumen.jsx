@@ -25,12 +25,12 @@ export default function Resumen() {
     }
 
 	return (
-        <aside className="w-72 h-screen overflow-y-scroll p-0">
+        <aside className="w-screen h-screen overflow-y-scroll p-0 sm:h-auto xl:w-72 xl:h-screen">
             <div className="p-5">
-                <h1 className="text-4xl font-bold">
+                <h1 className="text-4xl sm:text-3xl font-bold 2xl:text-4xl">
                     Mi pedido
                 </h1>
-                <p className="text-lg my-4">
+                <p className="text-lg my-4 sm:my-2.5 2xl:text-xl">
                     Aquí podras ver el resumen y totales de tu pedido
                 </p>
                 <hr />
@@ -41,40 +41,45 @@ export default function Resumen() {
                         </p>
                     ) : (
                         /** la varible producto es temporal */
-                        pedido.map(producto => (
-                            <ResumenProducto
-                                key={producto.id}
-                                producto={producto}
-                            />
-                        ))
+                        <div className="grid grid-cols-1 gap-3.5
+                                        sm:grid sm:grid-cols-2 sm:gap-2
+                                        min-[920px]:grid-cols-3
+                                        xl:grid-cols-1">
+                            {pedido.map(producto => (
+                                <ResumenProducto
+                                    key={producto.id}
+                                    producto={producto}
+                                />
+                            ))}
+                        </div>
                     )}
                 </div>
             </div>
 
-            <div className="bottom-0 sticky bg-zinc-100 p-5">
-                <p className="text-xl">
+            <div className="bottom-0 sticky bg-zinc-100 p-5 sm:flex sm:justify-between sm:items-center lg:flex-col lg:items-start">
+                <p className="text-xl sm:w-auto 2xl:text-2xl">
                     Total: {''}
-                    {formatearDinero(total)}
+                    <span className="sm:font-semibold">{formatearDinero(total)}</span>
                 </p>
 
                 <form
-                    className="w-full"
+                    className="w-full sm:w-auto xl:w-full"
                     onSubmit={handleSubmit}
                 >
-                    <div className="mt-5">
+                    <div className="mt-5 xl:mt-3">
                         <button
                             type="submit"
                             className={`${comprobarPedido() || confirmado ?
                                 'bg-indigo-300 cursor-no-drop' : 'bg-slate-700 hover:bg-slate-800' }
-                                px-5 py-2 rounded uppercase font-bold text-white text-center w-full cursor-pointer tracking-wide`}
+                                px-5 py-2 rounded uppercase font-bold text-white text-center w-full cursor-pointer tracking-wide 2xl:text-lg`}
                             disabled={comprobarPedido() || confirmado}
                         >
                             {confirmado ? (
 							<div className="flex items-center justify-center">
-								<Loader /> <span className="capitalize">Procesando Pedido...</span>
+								<Loader /> <span className="capitalize">Procesando Orden...</span>
 							</div>
 						) : (
-							'Confirmar Pedido'
+							'Confirmar Orden'
 						)}
                         </button>
                     </div>
