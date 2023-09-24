@@ -95,3 +95,5 @@ export const useAuth = ({middleware, url}) => {
         error
     }
 }
+
+export default useAuth;

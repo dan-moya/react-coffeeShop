@@ -17,7 +17,7 @@ export default function Inicio() {
 		}
     }).then(data => data.data)
     const { data, error, isLoading } = useSWR('/api/productos', fetcher, {
-        refreshInterval: 100000000 // esto es para que los cambios se actualicen en tiempo real (sin refrescar page) en 1s (1000)
+        refreshInterval: 1000 // esto es para que los cambios se actualicen en tiempo real (sin refrescar page) en 1s (1000)
     })
 
     /* console.log(data)

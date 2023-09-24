@@ -24,6 +24,7 @@ const KioscoProvider = ({children}) => {
     const [producto, setProducto] = useState({}); // en este caso los productos son objetos, por lo tanto inicia como un objeto vacío
     const [pedido, setPedido] = useState([]);
     const [total, setTotal] = useState(0)
+    const [disponible, setDisponible] = useState(producto.disponible === 1);
 
     /** Utilizaremos useEffect para calcular automáticamente el total del pedido (la suma de los subtotales).*/
     /** Cada que pedido cambie, queremos que esta función se ejecute para ir calculando el total */
@@ -156,23 +157,37 @@ const KioscoProvider = ({children}) => {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
+            });
+
+            toast.success('Pedido Completado')
+
         } catch (error) {
             console.log(error)
         }
     }
 
-    const handleClickProductoAgotado = async id => {
+    const handleClickProductoAgotado = async (id, disponible) => {
         const token = localStorage.getItem('AUTH_TOKEN');
+        // console.log('Disponible:', disponible);
         try {
             // el null, es porque no hay payload, es decir, no estamos enviando nada desde aquí, sino desde el servidor (Laravel)
-            await clienteAxios.put(`/api/productos/${id}`, null, {
+            const response = await clienteAxios.put(`/api/productos/${id}`, { disponible }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             })
+
+            if (response.status === 200) {
+                const updatedProducto = response.data.producto;
+                // console.log('Producto actualizado exitosamente:', updatedProducto);
+                toast[disponible ? 'warning' : 'success'](
+                    disponible ? 'Producto Agotado' : 'Producto Disponible'
+                );
+            } else {
+                console.error('Error al actualizar el estado:', response.data.message);
+            }
         } catch (error) {
-            console.log(error)
+            console.error('Error al actualizar el estado:', error);
         }
     }
 

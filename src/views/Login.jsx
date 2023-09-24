@@ -2,7 +2,7 @@ import { createRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Alerta from "../components/Alerta";
 import { useAuth } from "../hooks/useAuth";
-import Loader from "../components/Loader";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 
 export default function Login() {
@@ -89,11 +89,11 @@ export default function Login() {
 						<button
 							type="submit"
 							disabled={loading}
-							className={`bg-indigo-600 hover:bg-indigo-800 text-white mt-5 p-3 sm:px-3.5 uppercase font-bold cursor-pointer rounded-md tracking-wide ${loading ? 'opacity-50 cursor-wait' : ''}`}
+							className={`bg-indigo-600 hover:bg-indigo-800 text-white mt-5 p-3 sm:px-3.5 uppercase font-bold cursor-pointer rounded-md tracking-wide ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
 						>
 							{loading ? (
 								<div className="flex items-center justify-center">
-									<Loader /> Ingresando...
+									<LoadingIndicator show={loading} text="Ingresando..." />
 								</div>
 							) : (
 								'Ingresar'

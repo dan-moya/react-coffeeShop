@@ -20,10 +20,12 @@ export default function Productos() {
 
 	return (
 		<div>
-			<h1 className="text-4xl font-black">Productos</h1>
-			<p className="text-2xl my-10">Maneja la disponibilidad desde aquí.</p>
+			<div className='sm:mx-1 2xl:mt-4'>
+				<h1 className="text-2xl sm:text-4xl font-extrabold tracking-wider">Productos</h1>
+                <p className="text-lg mt-1 mb-5 sm:text-2xl sm:my-2">Maneja la disponibilidad desde aquí.</p>
+            </div>
 
-			<div className='grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
+			<div className='grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5'>
                 {data.data.map(producto => (
                     <Producto
                         key={producto.imagen}

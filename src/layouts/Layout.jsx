@@ -12,8 +12,6 @@ import Resumen from '../components/Resumen';
 import useKiosco from '../hooks/useKiosco';
 import ModalProducto from '../components/ModalProducto';
 import { useAuth } from '../hooks/useAuth';
-import '../scroll.css'
-
 
 const customStyles = {
 	content: {

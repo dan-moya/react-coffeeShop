@@ -75,12 +75,12 @@ export default function Resumen() {
                             disabled={comprobarPedido() || confirmado}
                         >
                             {confirmado ? (
-							<div className="flex items-center justify-center">
-								<Loader /> <span className="capitalize">Procesando Orden...</span>
-							</div>
-						) : (
-							'Confirmar Orden'
-						)}
+                                <div className="flex items-center justify-center">
+                                    <Loader /> <span className="capitalize">Procesando Orden...</span>
+                                </div>
+                            ) : (
+                                'Confirmar Orden'
+                            )}
                         </button>
                     </div>
                 </form>
